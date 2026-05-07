@@ -6,50 +6,33 @@ class Program
 {
     static void Main(string[] args)
     {
-        var lines = 5;
+        int lines = 5;
+        int iter = 0;
         var persons = new List<Person>();
 
         TextHeader("Minimal Staff Register");
 
         Console.WriteLine("Please enter persons as: 'firstname' 'lastname' 'age' 'salary'");
-        for (int i=0; i<lines; i++)
-        {
-            while (true) {
-                Console.Write($"Person {i+1}/{lines}: ");
-                string? cmdArgs = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(cmdArgs))
-                {
-                    Console.WriteLine("Input can't be empty. Try again.");
-                    continue;
-                }
-                string[] entries = cmdArgs.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-                if (entries.Length < 4)
-                {
-                    Console.WriteLine("Not enough data supplied. Try again.");
-                    continue;
-                }
-                if (!int.TryParse(entries[2], out int age) || age < 0)
-                {
-                    Console.WriteLine("Invalid age supplied. Try again");
-                    continue;
-                }
-                if (!decimal.TryParse(entries[3], out decimal salary))
-                {
-                    Console.WriteLine("Invalid salary supplied. Try again.");
-                    continue;
-                }
-                try
-                {
-                    var person = new Person(entries[0], entries[1], age, salary);
-                    persons.Add(person);
-                }
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    continue;
-                }
-
-                break;
+        while (iter < lines) {
+            Console.Write($"Person {iter+1}/{lines}: ");
+            try
+            {
+                string[]? cmdArgs = Console.ReadLine().Split(" ", options: StringSplitOptions.RemoveEmptyEntries);
+                var person = new Person(cmdArgs[0], cmdArgs[1], Convert.ToInt32(cmdArgs[2]), Convert.ToDecimal(cmdArgs[3]));
+                persons.Add(person);
+                iter++;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("Not enough data supplied. Try again.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Something else went wrong: {ex.Message}");
             }
         }
 
