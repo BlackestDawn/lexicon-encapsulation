@@ -14,7 +14,7 @@ public class Person(string firstName, string lastName, int age, decimal salary)
         get => this._firstName;
         set
         {
-            if (value.Length <= minSymbolsInName)
+            if (value.Length < minSymbolsInName)
             {
                 throw new ArgumentException($"First name cannot contain fewer than {minSymbolsInName} symbols!");
             }
@@ -22,13 +22,13 @@ public class Person(string firstName, string lastName, int age, decimal salary)
         }
     }
 
-    private string _lastName = lastName.Length <= minSymbolsInName ? lastName : throw new ArgumentException($"Last name cannot contain fewer than {minSymbolsInName} symbols!");
+    private string _lastName = lastName.Length >= minSymbolsInName ? lastName : throw new ArgumentException($"Last name cannot contain fewer than {minSymbolsInName} symbols!");
     public string Lastname
     {
         get => this._lastName;
         set
         {
-            if (value.Length <= minSymbolsInName)
+            if (value.Length < minSymbolsInName)
             {
                 throw new ArgumentException($"Last name cannot contain fewer than {minSymbolsInName} symbols!");
             }
@@ -57,7 +57,7 @@ public class Person(string firstName, string lastName, int age, decimal salary)
         set
         {
             if (value < minSalary) {
-            throw new ArgumentException($"Salary cannot be less than {minSalary} dollar!");
+                throw new ArgumentException($"Salary cannot be less than {minSalary} dollar!");
             }
             this._salary = value;
         }
