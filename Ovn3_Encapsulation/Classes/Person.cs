@@ -1,13 +1,30 @@
+using System.Runtime.InteropServices;
+
 namespace Ovn3_Encapsulation.Classes;
 
 public class Person(string firstName, string lastName, int age)
 {
-  public string FirstName { get; set; } = firstName;
-  public string Lastname { get; set; } = lastName;
-  public int Age { get; set; } = age;
+    private const int minAge = 18;
 
-  public override string ToString()
-  {
-    return $"{this.FirstName} {this.Lastname} is {this.Age} years old.";
-  }
+    public string FirstName { get; set; } = firstName;
+    public string Lastname { get; set; } = lastName;
+
+    private int _age = age >= minAge ? age : throw new ArgumentException("Age must be 18 or older.");
+    public int Age
+    {
+        get => this._age;
+        set
+        {
+            if (value < minAge)
+            {
+                throw new ArgumentException("Age must be 18 or older.");
+            }
+            this._age = value;
+        }
+    }
+
+    public override string ToString()
+    {
+        return $"{this.FirstName} {this.Lastname} is {this.Age} years old.";
+    }
 }
