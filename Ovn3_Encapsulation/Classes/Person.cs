@@ -12,14 +12,14 @@ public class Person(string firstName, string lastName, int age)
     private int _age = age >= minAge ? age : throw new ArgumentException("Age must be 18 or older.");
     public int Age
     {
-        get => _age;
+        get => this._age;
         set
         {
             if (value < minAge)
             {
                 throw new ArgumentException("Age must be 18 or older.");
             }
-            _age = value;
+            this._age = value;
         }
     }
 
