@@ -9,7 +9,7 @@ public class Person(string firstName, string lastName, int age, decimal salary)
     public string FirstName { get; set; } = firstName;
     public string Lastname { get; set; } = lastName;
 
-    private int _age = age >= minAge ? age : throw new ArgumentException("Age must be 18 or older.");
+    private int _age = age >= minAge ? age : throw new ArgumentException($"Age must be {minAge} or older.");
     public int Age
     {
         get => this._age;
@@ -17,7 +17,7 @@ public class Person(string firstName, string lastName, int age, decimal salary)
         {
             if (value < minAge)
             {
-                throw new ArgumentException("Age must be 18 or older.");
+                throw new ArgumentException($"Age must be {minAge} or older.");
             }
             this._age = value;
         }
