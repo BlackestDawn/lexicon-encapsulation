@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 namespace Ovn3_Encapsulation.Classes;
 
-public class Person(string firstName, string lastName, int age)
+public class Person(string firstName, string lastName, int age, decimal salary)
 {
     private const int minAge = 18;
 
@@ -23,8 +23,20 @@ public class Person(string firstName, string lastName, int age)
         }
     }
 
+    public decimal Salary { get; set; } = salary;
+
     public override string ToString()
     {
-        return $"{this.FirstName} {this.Lastname} is {this.Age} years old.";
+        return $"{this.FirstName} {this.Lastname} recieves {this.Salary:F2} dollars.";
+    }
+
+    public void IncreaseSalary(decimal percentage)
+    {
+        if (this.Age < 30)
+        {
+            percentage /= 2;
+        }
+
+        this.Salary *= 1 + (percentage / 100);
     }
 }
