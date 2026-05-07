@@ -25,4 +25,16 @@ public class PersonClassTests
         );
     }
 
+    [Fact]
+    public void Age_BelowEighteen_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => new Person("Mike", "Hansson", 3));
+    }
+
+    [Fact]
+    public void Age_SetBelowEighteen_ThrowsArgumentException()
+    {
+        var person = new Person("Mike", "Hansson", 30);
+        Assert.Throws<ArgumentException>(() => person.Age = 3);
+    }
 }
