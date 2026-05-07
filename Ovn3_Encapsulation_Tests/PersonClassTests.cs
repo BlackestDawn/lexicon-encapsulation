@@ -5,7 +5,7 @@ namespace Ovn3_Encapsulation_Tests;
 public class PersonClassTests
 {
     [Fact]
-    public void Test_Construction()
+    public void Constructor_Assignment()
     {
         var person = new Person("Mike", "Hansson", 30, 3000);
 
@@ -16,7 +16,7 @@ public class PersonClassTests
     }
 
     [Fact]
-    public void Test_ToString_Override()
+    public void ToString_Formatting()
     {
         var person = new Person("Mike", "Hansson", 30, 3000);
 
