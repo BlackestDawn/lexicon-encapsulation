@@ -33,9 +33,17 @@ class Program
                     Console.WriteLine("Invalid age supplied. Try again");
                     continue;
                 }
-                var person = new Person(entries[0], entries[1], age);
+                try
+                {
+                    var person = new Person(entries[0], entries[1], age);
+                    persons.Add(person);
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    continue;
+                }
 
-                persons.Add(person);
                 break;
             }
         }
