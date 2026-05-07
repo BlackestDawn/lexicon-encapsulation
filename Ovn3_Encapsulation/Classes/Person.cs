@@ -21,7 +21,19 @@ public class Person(string firstName, string lastName, int age, decimal salary)
         }
     }
 
-    public string LastName { get; set; } = lastName;
+    private string _lastName = lastName.Length <= minSymbolsInName ? lastName : throw new ArgumentException($"Last name cannot contain fewer than {minSymbolsInName} symbols!");
+    public string Lastname
+    {
+        get => _lastName;
+        set
+        {
+            if (value.Length <= minSymbolsInName)
+            {
+                throw new ArgumentException($"Last name cannot contain fewer than {minSymbolsInName} symbols!");
+            }
+            this._lastName = value;
+        }
+    }
 
     private int _age = age >= minAge ? age : throw new ArgumentException($"Age must be {minAge} or older.");
     public int Age
