@@ -5,11 +5,38 @@ namespace Ovn3_Encapsulation.Classes;
 public class Person(string firstName, string lastName, int age, decimal salary)
 {
     private const int minAge = 18;
+    private const int minSymbolsInName = 3;
+    private const int minSalary = 460;
 
-    public string FirstName { get; set; } = firstName;
-    public string Lastname { get; set; } = lastName;
+    private string _firstName = firstName.Length >= 3 ? firstName : throw new ArgumentException($"First name cannot contain fewer than {minSymbolsInName} symbols!");
+    public string FirstName
+    {
+        get => this._firstName;
+        set
+        {
+            if (value.Length < minSymbolsInName)
+            {
+                throw new ArgumentException($"First name cannot contain fewer than {minSymbolsInName} symbols!");
+            }
+            this._firstName = value;
+        }
+    }
 
-    private int _age = age >= minAge ? age : throw new ArgumentException("Age must be 18 or older.");
+    private string _lastName = lastName.Length >= minSymbolsInName ? lastName : throw new ArgumentException($"Last name cannot contain fewer than {minSymbolsInName} symbols!");
+    public string Lastname
+    {
+        get => this._lastName;
+        set
+        {
+            if (value.Length < minSymbolsInName)
+            {
+                throw new ArgumentException($"Last name cannot contain fewer than {minSymbolsInName} symbols!");
+            }
+            this._lastName = value;
+        }
+    }
+
+    private int _age = age >= minAge ? age : throw new ArgumentException($"Age must be {minAge} or older.");
     public int Age
     {
         get => this._age;
@@ -17,13 +44,24 @@ public class Person(string firstName, string lastName, int age, decimal salary)
         {
             if (value < minAge)
             {
-                throw new ArgumentException("Age must be 18 or older.");
+                throw new ArgumentException($"Age must be {minAge} or older.");
             }
             this._age = value;
         }
     }
 
-    public decimal Salary { get; set; } = salary;
+    private decimal _salary = salary >= minSalary ? salary : throw new ArgumentException($"Salary cannot be less than {minSalary} dollar!");
+    public decimal Salary
+    {
+        get => this._salary;
+        set
+        {
+            if (value < minSalary) {
+                throw new ArgumentException($"Salary cannot be less than {minSalary} dollar!");
+            }
+            this._salary = value;
+        }
+    }
 
     public override string ToString()
     {

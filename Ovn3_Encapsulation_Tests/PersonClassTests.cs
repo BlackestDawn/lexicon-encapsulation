@@ -5,7 +5,7 @@ namespace Ovn3_Encapsulation_Tests;
 public class PersonClassTests
 {
     [Fact]
-    public void Test_Construction()
+    public void Constructor_Assignment()
     {
         var person = new Person("Mike", "Hansson", 30, 3000);
 
@@ -16,7 +16,7 @@ public class PersonClassTests
     }
 
     [Fact]
-    public void Test_ToString_Override()
+    public void ToString_Formatting()
     {
         var person = new Person("Mike", "Hansson", 30, 3000);
 
@@ -55,5 +55,23 @@ public class PersonClassTests
 
         person.IncreaseSalary(10);
         Assert.Equal(2310, person.Salary);
+    }
+
+    [Fact]
+    public void Salary_Below460_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => new Person("Mike", "Hansson", 30, 300));
+    }
+
+    [Fact]
+    public void FirstName_Below3Symbols_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => new Person("Mi", "Hansson", 30, 300));
+    }
+
+    [Fact]
+    public void LastName_Below3Symbols_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => new Person("Mike", "Ha", 30, 300));
     }
 }
