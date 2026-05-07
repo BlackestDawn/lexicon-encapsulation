@@ -36,10 +36,17 @@ class Program
             }
         }
 
-        persons.OrderBy(p => p.FirstName)
-            .ThenBy(p => p.Lastname)
-            .ToList()
-            .ForEach(p => Console.WriteLine(p));
+        Console.Write("Enter a percentage bonus to apply: ");
+        int bonus = Convert.ToInt32(Console.ReadLine());
+        if (bonus < 0)
+        {
+            Console.WriteLine("Bonus cannot be negative, exiting.");
+        }
+        persons.ForEach(p =>
+        {
+            p.IncreaseSalary(bonus);
+            Console.WriteLine(p);
+        });
     }
 
     private static void TextHeader(string text)
