@@ -24,7 +24,7 @@ public class Person(string firstName, string lastName, int age, decimal salary)
     private string _lastName = lastName.Length <= minSymbolsInName ? lastName : throw new ArgumentException($"Last name cannot contain fewer than {minSymbolsInName} symbols!");
     public string Lastname
     {
-        get => _lastName;
+        get => this._lastName;
         set
         {
             if (value.Length <= minSymbolsInName)
