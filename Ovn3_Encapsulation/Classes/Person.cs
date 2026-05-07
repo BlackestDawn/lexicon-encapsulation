@@ -5,9 +5,23 @@ namespace Ovn3_Encapsulation.Classes;
 public class Person(string firstName, string lastName, int age, decimal salary)
 {
     private const int minAge = 18;
+    private const int minSymbolsInName = 3;
 
-    public string FirstName { get; set; } = firstName;
-    public string Lastname { get; set; } = lastName;
+    private string _firstName = firstName.Length >= 3 ? firstName : throw new ArgumentException($"First name cannot contain fewer than {minSymbolsInName} symbols!");
+    public string FirstName
+    {
+        get => this._firstName;
+        set
+        {
+            if (value.Length <= minSymbolsInName)
+            {
+                throw new ArgumentException($"First name cannot contain fewer than {minSymbolsInName} symbols!");
+            }
+            this._firstName = value;
+        }
+    }
+
+    public string LastName { get; set; } = lastName;
 
     private int _age = age >= minAge ? age : throw new ArgumentException($"Age must be {minAge} or older.");
     public int Age
