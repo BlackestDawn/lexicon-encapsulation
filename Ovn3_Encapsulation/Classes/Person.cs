@@ -6,6 +6,7 @@ public class Person(string firstName, string lastName, int age, decimal salary)
 {
     private const int minAge = 18;
     private const int minSymbolsInName = 3;
+    private const int minSalary = 460;
 
     private string _firstName = firstName.Length >= 3 ? firstName : throw new ArgumentException($"First name cannot contain fewer than {minSymbolsInName} symbols!");
     public string FirstName
@@ -49,7 +50,18 @@ public class Person(string firstName, string lastName, int age, decimal salary)
         }
     }
 
-    public decimal Salary { get; set; } = salary;
+    private decimal _salary = salary >= minSalary ? salary : throw new ArgumentException($"Salary cannot be less than {minSalary} dollar!");
+    public decimal Salary
+    {
+        get => this._salary;
+        set
+        {
+            if (value < minSalary) {
+            throw new ArgumentException($"Salary cannot be less than {minSalary} dollar!");
+            }
+            this._salary = value;
+        }
+    }
 
     public override string ToString()
     {
